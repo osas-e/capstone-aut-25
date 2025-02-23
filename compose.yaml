@@ -1,0 +1,141 @@
+services:
+  auth:
+    build:
+      context: ./auth
+      dockerfile: Dockerfile
+    env_file: env/auth.env
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
+    restart: unless-stopped
+
+  cloudflared:
+    env_file: env/cloudflared.env
+    command: tunnel --no-autoupdate run
+    image: cloudflare/cloudflared:latest
+    volumes:
+      - ./conf/cloudflare/config:/home/nonroot/.cloudflared
+
+  db:
+    env_file: env/db.env
+    image: pgvector/pgvector:pg15
+    restart: unless-stopped
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+
+  edgetts:
+    deploy: &gpu-deploy
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    env_file: env/edgetts.env
+    image: travisvn/openai-edge-tts:latest
+    ports:
+      - 5050:5050
+    restart: unless-stopped
+
+  nginx:
+    depends_on:
+      - auth
+      - openwebui
+    image: nginx:latest
+    ports:
+      - 80:80
+    restart: unless-stopped
+    volumes:
+      - ./conf/nginx/default.conf:/etc/nginx/nginx.conf
+
+  ollama:
+    deploy: *gpu-deploy
+    env_file: env/ollama.env
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    restart: unless-stopped
+    volumes:
+      - ./data/ollama:/root/.ollama
+
+  openwebui:
+    depends_on:
+      - db
+      - edgetts
+      - ollama
+      - searxng
+    deploy: *gpu-deploy
+    env_file: env/openwebui.env
+    image: ghcr.io/open-webui/open-webui:cuda
+    ports:
+      - 8080:8080
+    restart: unless-stopped
+    volumes:
+      - ./data/openwebui:/app/backend/data
+
+  pipelines:
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    image: ghcr.io/open-webui/pipelines:main
+    restart: unless-stopped
+    volumes:
+      - ./data/pipelines:/app/pipelines
+
+  redis:
+    env_file: env/redis.env
+    image: redis/redis-stack:latest
+    restart: unless-stopped
+    volumes:
+      - ./data/redis:/data
+
+  searxng:
+    cap_add:
+      - CHOWN
+      - SETGID
+      - SETUID
+      - DAC_OVERRIDE
+    cap_drop:
+      - ALL
+    env_file: env/searxng.env
+    depends_on:
+      - redis
+    image: searxng/searxng:latest
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1m"
+        max-file: "1"
+    restart: unless-stopped
+    volumes:
+      - ./data/searxng/settings.yml:/etc/searxng/settings.yml:rw
+      - ./data/searxng/uwsgi.ini:/etc/searxng/uwsgi.ini:rw
+
+  # watchtower:
+  #   command: --cleanup --debug --interval 300
+  #   depends_on:
+  #     - openwebui
+  #   env_file: env/watchtower.env
+  #   image: containrrr/watchtower
+  #   restart: unless-stopped
+  #   volumes:
+  #     - /var/run/docker.sock:/var/run/docker.sock
+
+
+
+
+  # OPTIONAL SETUP
+  #
+  # ** local speech synthesis: only us/uk english (currently)
+  # kokoro:
+  #   deploy: *gpu-deploy
+  #   image: ghcr.io/remsky/kokoro-fastapi-gpu:latest
+  #   ports:
+  #     - 8880:8880
+
+  # ** node based image generation
+  # comfyui:
+  #   deploy: *gpu-deploy
+  #   image: yanwk/comfyui-boot:cu124-slim
+  #   ports:
+  #     - 8188:8188
+  #   volumes:
+  #     - ./data/comfyui:/root
