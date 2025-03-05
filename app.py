@@ -51,7 +51,7 @@ def xlsx_to_json(xlsx_file_path, json_file_path):
 
     return json_file_path
 
-# Open file picker window
+# Open file picker window to import dataset
 root = tk.Tk()
 root.withdraw()  # Hide the root window
 file_path = filedialog.askopenfilename(title="Select CSV or XLSX File", filetypes=[("CSV files", "*.csv"),("XLSX files", "*.xlsx")])
