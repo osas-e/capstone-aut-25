@@ -1,55 +1,15 @@
-import csv
 import json
 import os
 import pandas as pd
 import tkinter as tk
 from tkinter import filedialog
+import re
 
-# Convert .csv to JSON
-def csv_to_json(csv_file_path, json_file_path):
-    data = []
-    
-    with open(csv_file_path, mode='r', encoding='utf-8') as file:
-        reader = csv.reader(file)
-        headers = next(reader)[1:14]  # Columns 2-14 selected which contain INCOSE rules
-        
-        for row in reader:
-            data.append({headers[i]: row[i+1] for i in range(len(headers))})
+# Define the explanation pattern
+explanation_pattern = re.compile(r"(\d+)(?:\s*-\s*(.*))?")
 
-    with open(json_file_path, mode='w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4)
-
-    return json_file_path
-
-# Convert .xlsx to JSON
-def xlsx_to_json(xlsx_file_path, json_file_path):
-    # Read the Excel file into a DataFrame
-    df = pd.read_excel(xlsx_file_path, engine='openpyxl')  # engine='openpyxl' is recommended for xlsx
-
-    # Process columns 2 to 14
-    headers = df.columns[1:14].tolist()
-    print(f"Detected Headers (Columns 2-14): {headers}")
-
-    data = []
-
-    # Iterate over rows
-    for _, row in df.iterrows():
-        # Create a dictionary for columns 2-14
-        row_dict = {headers[i]: row[i+1] for i in range(len(headers))}
-
-        # Skip rows where all values in the selected columns are empty
-        if all(pd.isna(value) or value == '' for value in row_dict.values()):
-            continue
-
-        data.append(row_dict)
-
-    print(f"Total Rows Processed: {len(data)}")
-
-    # Write JSON output
-    with open(json_file_path, mode='w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
-
-    return json_file_path
+# Define the jsonl file path
+json_file_path = "output.json"
 
 # Open file picker window to import dataset
 root = tk.Tk()
@@ -57,18 +17,86 @@ root.withdraw()  # Hide the root window
 file_path = filedialog.askopenfilename(title="Select CSV or XLSX File", filetypes=[("CSV files", "*.csv"),("XLSX files", "*.xlsx")])
 
 if file_path:
-
     file_extension = os.path.splitext(file_path)[1].lower()
 
+    # Load the dataset into a DataFrame
     if file_extension == ".xlsx":
-        json_file_path = file_path.replace(".xlsx", ".json")
-        output_path = xlsx_to_json(file_path, json_file_path)
-        print(f"JSON file saved at: {output_path}")
+        df = pd.read_excel(file_path)
+    elif file_extension == ".csv":
+        df = pd.read_csv(file_path)
 
-    elif file_extension == ".csv":     
-        json_file_path = file_path.replace(".csv", ".json")
-        output_path = csv_to_json(file_path, json_file_path)
-        print(f"JSON file saved at: {output_path}")
+    # Set the requirement column to the second column
+    requirement_column = df.columns[1]
 
-else:
-    print("No file selected.")
+    # Dynamically identify the rule columns and their descriptions
+    rules = {}
+    for col in df.columns[2:]:
+        rule_name = col
+        rule_description = df.iloc[0][col]
+        rules[rule_name] = rule_description
+
+    rule_columns = list(rules.keys())
+
+    with open(json_file_path, mode='w', encoding='utf-8') as out_file:
+        # Loop through requirements (rows), starting from the first row after the header
+        for _, row in df.iterrows():
+            requirement_text = str(row[requirement_column]).strip()
+
+            if not requirement_text or requirement_text.lower() == 'nan':
+                continue
+
+            # Create a dictionary to hold the requirement and its rules
+            requirement_entry = {
+                "requirement": requirement_text,
+                "rules": []
+            }
+
+            # Loop through each rule
+            for rule_column in rule_columns:
+                rule_name = rule_column
+                cell_value = str(row[rule_column]).strip()
+
+                if cell_value.lower() in ["nan", ""]:
+                    continue
+
+                # Extract numeric value and optional explanation
+                match = explanation_pattern.match(cell_value)
+
+                if match:
+                    compliance_result = match.group(1)
+                    explanation = match.group(2).strip() if match.group(2) else None
+                else:
+                    compliance_result = cell_value
+                    explanation = None
+
+                # If compliance result is '0', read the explanation from the next cell
+                if compliance_result == '0' and not explanation:
+                    explanation_index = df.columns.get_loc(rule_column) + 1
+                    if explanation_index < len(df.columns):
+                        explanation = str(row.iloc[explanation_index]).strip()
+
+                # Rule entry
+                rule_entry = {
+                    "rule": rule_name,
+                    "output": compliance_result
+                }
+
+                # Add explanation if present and non-compliant (score = 0)
+                if compliance_result == '0' and explanation:
+                    rule_entry["explanation"] = explanation
+
+                # Add rule entry to the requirement's rules
+                requirement_entry["rules"].append(rule_entry)
+
+            # Write the requirement entry to JSONL file with indentation
+            out_file.write(json.dumps(requirement_entry, ensure_ascii=False, indent=4) + "\n")
+
+def xlsx_to_json(xlsx_path, json_path):
+    df = pd.read_excel(xlsx_path)
+    df.to_json(json_path, orient='records', lines=True)
+    return json_path
+
+def csv_to_json(csv_path, json_path):
+    df = pd.read_csv(csv_path)
+    df.to_json(json_path, orient='records', lines=True)
+    return json_path
