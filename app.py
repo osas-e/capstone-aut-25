@@ -30,12 +30,13 @@ if file_path:
 
     # Dynamically identify the rule columns and their descriptions
     rules = {}
-    for col in df.columns[2:]:
+    for col in df.columns[2:-1]:  # Exclude the last column for final rating
         rule_name = col
         rule_description = df.iloc[0][col]
         rules[rule_name] = rule_description
 
     rule_columns = list(rules.keys())
+    final_rating_column = df.columns[-1]  # The last column for final rating
 
     with open(json_file_path, mode='w', encoding='utf-8') as out_file:
         # Loop through requirements (rows), starting from the first row after the header
@@ -87,6 +88,10 @@ if file_path:
 
                 # Add rule entry to the requirement's rules
                 requirement_entry["rules"].append(rule_entry)
+
+            # Add final rating
+            final_rating = float(row[final_rating_column])
+            requirement_entry["Final rating"] = final_rating
 
             # Write the requirement entry to JSONL file with indentation
             out_file.write(json.dumps(requirement_entry, ensure_ascii=False, indent=4) + "\n")
