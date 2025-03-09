@@ -39,6 +39,8 @@ if file_path:
     final_rating_column = df.columns[-1]  # The last column for final rating
 
     with open(json_file_path, mode='w', encoding='utf-8') as out_file:
+        requirements_list = []  # Create a list to hold all requirements
+
         # Loop through requirements (rows), starting from the first row after the header
         for _, row in df.iterrows():
             requirement_text = str(row[requirement_column]).strip()
@@ -93,8 +95,11 @@ if file_path:
             final_rating = float(row[final_rating_column])
             requirement_entry["Final rating"] = final_rating
 
-            # Write the requirement entry to JSONL file with indentation
-            out_file.write(json.dumps(requirement_entry, ensure_ascii=False, indent=4) + "\n")
+            # Add the requirement entry to the list
+            requirements_list.append(requirement_entry)
+
+        # Write the list of requirements to JSON file with indentation
+        out_file.write(json.dumps(requirements_list, ensure_ascii=False, indent=4) + "\n")
 
 def xlsx_to_json(xlsx_path, json_path):
     df = pd.read_excel(xlsx_path)
