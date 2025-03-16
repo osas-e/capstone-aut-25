@@ -1,75 +1,109 @@
-import csv
-import json
 import os
+import json
 import pandas as pd
 import tkinter as tk
 from tkinter import filedialog
+import ollama
 
+# ---------------------------
+# 1️⃣ GUI to Select CSV File
+# ---------------------------
+def select_csv_file():
+    root = tk.Tk()
+    root.withdraw()  # Hide main Tkinter window
+    file_path = filedialog.askopenfilename(title="Select CSV File", filetypes=[("CSV files", "*.csv")])
+    return file_path
 
-# Convert .csv to JSON
-def csv_to_json(csv_file_path, json_file_path):
-    data = []
-    
-    with open(csv_file_path, mode='r', encoding='utf-8') as file:
-        reader = csv.reader(file)
-        headers = next(reader)[1:14]  # Columns 2-14 selected which contain INCOSE rules
-        
-        for row in reader:
-            data.append({headers[i]: row[i+1] for i in range(len(headers))})
+csv_file = select_csv_file()
 
-    with open(json_file_path, mode='w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4)
+if not csv_file:
+    print("No file selected. Exiting.")
+    exit()
 
-    return json_file_path
+print(f"Selected file: {csv_file}")
 
-# Convert .xlsx to JSON
-def xlsx_to_json(xlsx_file_path, json_file_path):
-    # Read the Excel file into a DataFrame
-    df = pd.read_excel(xlsx_file_path, engine='openpyxl')  # engine='openpyxl' is recommended for xlsx
+# ---------------------------
+# 2️⃣ Load CSV and Process Rule-by-Rule
+# ---------------------------
+jsonl_file = "./gemma_fine_tune.jsonl"
 
-    # Process columns 2 to 14
-    headers = df.columns[1:14].tolist()
-    print(f"Detected Headers (Columns 2-14): {headers}")
+# Load dataset
+df = pd.read_csv(csv_file, nrows=28)
 
-    data = []
+# Define the rules
+rules = {
+    "R1": "Need and requirement statements must conform to one of the agreed patterns, thus resulting in a well-structured complete statement.",
+    "R6": "When stating quantities, all numbers should have appropriate and consistent units of measure explicitly stated using a common measurement system in terms of the thing the number refers.",
+    "R11": "Use a separate clause for each condition or qualification.",
+    "R12": "Use correct grammar",
+    "R14": "Use correct punctuation.",
+    "R16": "Avoid the use of 'not'",
+    "R26": "Avoid using unachievable absolutes such as 100% reliability, 100% availability, all, every, always, never, etc.",
+    "R27": "State conditions’ applicability explicitly instead of leaving applicability to be inferred from the context.",
+    "R32": "Use 'each' instead of 'all', 'any', or 'both' when universal quantification is intended.",
+    "R33": "Define each quantity with a range of values appropriate to the entity to which the quantity applies and against which the entity will be verified or validated.",
+    "R36": "Ensure each term and unit of measure used throughout need and requirement sets as well as associated models and other SE artefacts developed across the lifecycle are consistent with the project’s defined ontology."
+}
 
-    # Iterate over rows
+# Prepare fine-tuning dataset
+formatted_data = []
+
+for rule_name, rule_description in rules.items():
     for _, row in df.iterrows():
-        # Create a dictionary for columns 2-14
-        row_dict = {headers[i]: row[i+1] for i in range(len(headers))}
+        requirement_text = row["RequirementText"]
+        compliance_value = str(row[rule_description])  # Get compliance score (0 or 1)
 
-        # Skip rows where all values in the selected columns are empty
-        if all(pd.isna(value) or value == '' for value in row_dict.values()):
-            continue
+        # Format as instruction-response pairs
+        formatted_entry = {
+            "input": f"Evaluate this requirement against {rule_name}: '{rule_description}'Requirement: '{requirement_text}'",
+            "output": "Pass" if "1" in compliance_value else f"Fails {rule_name}: {rule_description}"
+        }
 
-        data.append(row_dict)
+        formatted_data.append(formatted_entry)
 
-    print(f"Total Rows Processed: {len(data)}")
+# Save dataset in JSONL format
+with open(jsonl_file, "w") as f:
+    for item in formatted_data:
+        f.write(json.dumps(item) + "\n")
 
-    # Write JSON output
-    with open(json_file_path, mode='w', encoding='utf-8') as file:
-        json.dump(data, file, indent=4, ensure_ascii=False)
+print(f"Fine-tuning data saved to: {jsonl_file}")
 
-    return json_file_path
+# ---------------------------
+# 3️⃣ Fine-Tune Gemma with Ollama
+# ---------------------------
+# Convert JSONL data to Ollama's fine-tuning format
+ollama_fine_tune_data = []
 
-# Open file picker window to import dataset
-root = tk.Tk()
-root.withdraw()  # Hide the root window
-file_path = filedialog.askopenfilename(title="Select CSV or XLSX File", filetypes=[("CSV files", "*.csv"),("XLSX files", "*.xlsx")])
+for item in formatted_data:
+    ollama_fine_tune_data.append(f"message user {item['input']}")
+    ollama_fine_tune_data.append(f"message assistant {item['output']}")
 
-if file_path:
+# ollama_fine_tune_data = [{"prompt": item["input"], "completion": item["output"]} for item in formatted_data]
 
-    file_extension = os.path.splitext(file_path)[1].lower()
+# Save in Ollama’s format (optional step)
+ollama_finetune_file = "ollama_finetune.txt"
+with open(ollama_finetune_file, "w") as f:
+    f.write("\n".join(ollama_fine_tune_data))
 
-    if file_extension == ".xlsx":
-        json_file_path = file_path.replace(".xlsx", ".json")
-        output_path = xlsx_to_json(file_path, json_file_path)
-        print(f"JSON file saved at: {output_path}")
+print(f"Fine-tuning data formatted for Ollama: {ollama_finetune_file}")
 
-    elif file_extension == ".csv":     
-        json_file_path = file_path.replace(".csv", ".json")
-        output_path = csv_to_json(file_path, json_file_path)
-        print(f"JSON file saved at: {output_path}")
+# # Run fine-tuning command via Ollama CLI
+# model_name = "gemma2"  # Change if using a different version
 
-else:
-    print("No file selected.")
+# os.system(f"ollama create gemma-incose-expert -f {ollama_finetune_file}")
+
+# print("Fine-tuning complete. Model saved as 'gemma-incose-expert' in Ollama.")
+
+# # ---------------------------
+# # 4️⃣ Use the Fine-Tuned Model in Ollama
+# # ---------------------------
+# def query_ollama(prompt):
+#     response = ollama.chat(model="gemma-incose-expert", messages=[{"role": "user", "content": prompt}])
+#     return response["message"]["content"]
+
+# # Example Test
+# test_input = "Evaluate this requirement against Rule 2: 'When stating quantities, all numbers should have appropriate and consistent units of measure.'\nRequirement: 'The system shall display the Events in a graph by time.'"
+# output = query_ollama(test_input)
+
+# print("Test Output from Fine-Tuned Model:")
+# print(output)
