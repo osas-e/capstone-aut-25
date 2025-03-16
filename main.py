@@ -128,25 +128,21 @@ training_args = TrainingArguments(
 model_save_path = './qwen_incose_expert'
 
 # Start fine-tuning
-def train_in_chunks(train_dataset, chunk_size=100):
-    total_size = len(train_dataset)
-    for i in range(0, len(train_dataset), chunk_size):
-        chunk = train_dataset[i:i+chunk_size]
-        yield chunk
 
-for chunk in train_in_chunks(tokenized_datasets["train"], chunk_size=100):
-    trainer = Trainer(
+subset_size = 2
+train_subset = tokenized_datasets["train"].select(range(subset_size))
+
+trainer = Trainer(
         model=model,
         args=training_args,
-        train_dataset=chunk,
+        train_dataset=train_subset,
         tokenizer=tokenizer
-    )
+)
     
-    trainer.train()
+trainer.train()
 
-    model.save_pretrained(model_save_path)
-    tokenizer.save_pretrained(model_save_path)
-    print(f"Model saved after processing chunk {i // 100 + 1}")
+model.save_pretrained(model_save_path)
+tokenizer.save_pretrained(model_save_path)
 
 
 print(f"Fine-tuned model saved to: {model_save_path}")
