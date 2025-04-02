@@ -9,4 +9,3 @@ Autumn 2025
 - **Osasere Eguaibor** - 13623549
 
 # Project Details
-
