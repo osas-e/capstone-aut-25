@@ -1,0 +1,591 @@
+# Requirements Rules
+
+This document outlines rules for writing high-quality requirements. Each rule is associated with a specific characteristic of a good requirement.
+
+## Characteristic: C1 - Necessary
+
+Characteristic_Name: Necessary
+
+Description: Requirements should define essential capabilities, functions, or constraints. Avoid including unnecessary information. [cite: 1, 2, 3]
+
+### Rule: R20 - Purpose Phrases
+
+Rule_ID: R20
+
+Rule_Name: Purpose Phrases
+
+Rule_Text: Eliminate any phrases that describe the "purpose of," "intent of," or "reason for" the requirement. Focus solely on the required behavior or characteristic. [cite: 1, 2]
+
+### Rule: R30 - Unique Expression
+
+Rule_ID: R30
+
+Rule_Name: Unique Expression
+
+Rule_Text: Ensure that each requirement is stated once and only once within the documentation. Avoid redundancy. [cite: 2, 3]
+
+## Characteristic: C2 - Appropriate
+
+Characteristic_Name: Appropriate
+
+Description: Requirements should be suitable for the system level and avoid specifying design or implementation details. [cite: 6, 7]
+
+### Rule: R2 - Active Voice
+
+Rule_ID: R2
+
+Rule_Name: Active Voice
+
+Rule_Text: Write requirements in the active voice. The entity responsible for fulfilling the requirement must be the subject of the sentence (e.g., "The system shall...", not "The action shall be done by the system..."). [cite: 3, 4]
+
+### Rule: R3 - Clear Subject-Verb Agreement
+
+Rule_ID: R3
+
+Rule_Name: Clear Subject-Verb Agreement
+
+Rule_Text: Verify that the subject and verb in each requirement statement agree grammatically (e.g., "The system shall perform...", not "The system must performing..."). [cite: 5]
+
+### Rule: R31 - Solution-Free Language
+
+Rule_ID: R31
+
+Rule_Name: Solution-Free Language
+
+Rule_Text: Phrase requirements to define what needs to be achieved, not how to achieve it. Avoid specifying design or implementation details (e.g., "The system shall respond in ≤ 30 seconds," not "The system shall use Algorithm X to respond..."). [cite: 6, 7]
+
+## Characteristic: C4 - Complete
+
+Characteristic_Name: Complete
+
+Description: Requirements should be fully stated and include all necessary information.
+
+### Rule: R1 - Structured Statements
+
+Rule_ID: R1
+
+Rule_Name: Structured Statements
+
+Rule_Text: Formulate requirements as complete sentences adhering to a defined structure: "<subject (entity)> shall <verb (action)> <object> <response>". Use "shall" to denote mandatory actions. [cite: 8, 9]
+
+### Rule: R2 - Active Voice
+
+Rule_ID: R2
+
+Rule_Name: Active Voice
+
+Rule_Text: Use active voice, clearly identifying the responsible entity as the subject. [cite: 9, 10]
+
+### Rule: R6 - Common Units of Measure
+
+Rule_ID: R6
+
+Rule_Name: Common Units of Measure
+
+Rule_Text: Express all quantities with SI/metric units. [cite: 10]
+
+### Rule: R7 - Avoid Vague Terms
+
+Rule_ID: R7
+
+Rule_Name: Avoid Vague Terms
+
+Rule_Text: Remove subjective or imprecise language. Replace terms like "some," "many," "approximately," "adequate," etc., with quantifiable measures. [cite: 10, 11, 12]
+
+### Rule: R9 - Avoid Open-Ended Clauses
+
+Rule_ID: R9
+
+Rule_Name: Avoid Open-Ended Clauses
+
+Rule_Text: Do not use phrases that imply an undefined continuation, such as "including but not limited to," "etc.," or "and so on." [cite: 12]
+
+### Rule: R11 - Separate Clauses
+
+Rule_ID: R11
+
+Rule_Name: Separate Clauses
+
+Rule_Text: Write one requirement per sentence. Do not combine multiple requirements into a single statement. [cite: 13]
+
+### Rule: R23 - Supporting Diagrams/Models
+
+Rule_ID: R23
+
+Rule_Name: Supporting Diagrams/Models
+
+Rule_Text: Note if the requirement is better expressed or clarified by a diagram, model, or Interface Control Document (ICD), though you are not generating these. [cite: 14]
+
+### Rule: R24 - Pronouns
+
+Rule_ID: R24
+
+Rule_Name: Pronouns
+
+Rule_Text: Avoid using pronouns like "it," "they," "this," or "that." Always use the specific entity or object. [cite: 15]
+
+### Rule: R25 - Headings
+
+Rule_ID: R25
+
+Rule_Name: Headings
+
+Rule_Text: Ensure the requirement is understandable without relying on any section headings. [cite: 16]
+
+### Rule: R27 - Explicit Conditions
+
+Rule_ID: R27
+
+Rule_Name: Explicit Conditions
+
+Rule_Text: Clearly define all triggering conditions and events. Avoid ambiguity in describing when the requirement applies. [cite: 17]
+
+### Rule: R33 - Range of Values
+
+Rule_ID: R33
+
+Rule_Name: Range of Values
+
+Rule_Text: Include acceptable tolerances or ranges for all quantitative requirements. [cite: 18]
+
+### Rule: R34 - Measurable Performance
+
+Rule_ID: R34
+
+Rule_Name: Measurable Performance
+
+Rule_Text: Define requirements in terms of quantifiable metrics. [cite: 19, 20]
+
+### Rule: R35 - Temporal Dependencies
+
+Rule_ID: R35
+
+Rule_Name: Temporal Dependencies
+
+Rule_Text: Specify timing and sequence constraints clearly (e.g., "within 10 seconds," "before event X," "after step Y"). [cite: 20]
+
+### Rule: R39 - Style Guide
+
+Rule_ID: R39
+
+Rule_Name: Style Guide
+
+Rule_Text: Adhere to a consistent style guide (if provided; otherwise, apply generally accepted English grammar and technical writing conventions). [cite: 21, 22]
+
+### Rule: R40 - Decimal Format
+
+Rule_ID: R40
+
+Rule_Name: Decimal Format
+
+Rule_Text: Follow a consistent decimal format (if specified). [cite: 22]
+
+### Rule: R41 - Related Needs
+
+Rule_ID: R41
+
+Rule_Name: Related Needs
+
+Rule_Text: (If applicable) Note the relationship of the requirement to its originating need. [cite: 23]
+
+## Characteristic: C5 - Singular
+
+Characteristic_Name: Singular
+
+Description: Requirements should express a single thought or assertion. Avoid combining multiple requirements into one. [cite: 26, 27, 28]
+
+### Rule: R9 - Open-ended Clauses
+
+Rule_ID: R9
+
+Rule_Name: Open-ended Clauses
+
+Rule_Text: Avoid open-ended, non-specific clauses such as “including but not limited to”, “etc.” and “and so on”. Open-ended clauses imply there is more required without stating exactly what. [cite: 24, 25]
+
+### Rule: R18 - Single Thought Sentence
+
+Rule_ID: R18
+
+Rule_Name: Single Thought Sentence
+
+Rule_Text: Express only one requirement or assertion per sentence. (e.g., "The system shall do X" is acceptable. "The system shall do X and Y" is not). This makes the requirement easier to understand and verify. [cite: 26, 27, 28]
+
+### Rule: R19 - Combinators
+
+Rule_ID: R19
+
+Rule_Name: Combinators
+
+Rule_Text: Avoid using conjunctions (and, or) to combine multiple requirements. (e.g., "The system shall do A and the system shall do B" should be two separate requirements). This ensures each requirement is distinct. [cite: 28, 29, 30]
+
+### Rule: R20 - Purpose Phrases
+
+Rule_ID: R20
+
+Rule_Name: Purpose Phrases
+
+Rule_Text: Avoid phrases that state the purpose of the need statement or requirement statement. Such phrases include “for the purpose of’, “in order to”, “so that”, “as a means to”, “intended to”, “used to”, and “to”. [cite: 30, 31]
+
+### Rule: R21 - Parentheses
+
+Rule_ID: R21
+
+Rule_Name: Parentheses
+
+Rule_Text: Use parentheses carefully to avoid introducing ambiguity or multiple interpretations. (e.g., "The system shall (if condition A) do X" is acceptable if clear. "The system shall do X (Y or Z)" could be ambiguous). This ensures clarity in conditional statements. [cite: 31]
+
+### Rule: R22 - Enumeration
+
+Rule_ID: R22
+
+Rule_Name: Enumeration
+
+Rule_Text: If listing items, ensure it doesn't create multiple implicit requirements. (e.g., "The system shall support A, B, and C" is acceptable if the support is the same for all. If the support differs, separate requirements are needed). This avoids hidden requirements. [cite: 31, 32]
+
+### Rule: R23 - Supporting Diagram, Model, or ICD
+
+Rule_ID: R23
+
+Rule_Name: Supporting Diagram, Model, or ICD
+
+Rule_Text: Note the need for these. (e.g., if describing a complex interface, state "See ICD-123"). This acknowledges when visual aids are necessary for clarity. [cite: 32]
+
+### Rule: R39 - Style Guide
+
+Rule_ID: R39
+
+Rule_Name: Style Guide
+
+Rule_Text: Adhere to a consistent style guide. (e.g., formatting, terminology). This ensures uniformity and readability. [cite: 32, 33]
+
+## Characteristic: C6 - Feasible
+
+Characteristic_Name: Feasible
+
+Description: Requirements should be achievable within the constraints of the project. [cite: 33, 34, 35]
+
+### Rule: R26 - Avoid Absolutes
+
+Rule_ID: R26
+
+Rule_Name: Avoid Absolutes
+
+Rule_Text: Do not use terms that imply impossibility or unachievability, such as "all," "always," "every," or "never." (e.g., "The system shall always respond" is often unrealistic. "The system shall respond within 5 seconds" is more feasible). This ensures requirements are realistic. [cite: 33, 34, 35]
+
+### Rule: R33 - Range of Values
+
+Rule_ID: R33
+
+Rule_Name: Range of Values
+
+Rule_Text: Include tolerances to reflect real-world limitations. (e.g., manufacturing tolerances, environmental variations). This acknowledges that perfect values are rarely achievable. [cite: 35, 36]
+
+## Characteristic: C7 - Verifiable
+
+Characteristic_Name: Verifiable
+
+Description: Requirements should be stated in a way that can be objectively verified. [cite: 36, 37]
+
+### Rule: R1 - Structured Statements
+
+Rule_ID: R1
+
+Rule_Name: Structured Statements
+
+Rule_Text: Use the specified sentence structure: "<subject (entity)> shall <verb (action)> <object> <response>". This provides a consistent framework for verification. [cite: 36, 37]
+
+### Rule: R2 - Active Voice
+
+Rule_ID: R2
+
+Rule_Name: Active Voice
+
+Rule_Text: Use active voice. (e.g., "The system shall transmit data" is verifiable. "Data shall be transmitted" is less clear on who transmits). This clarifies who performs the action, aiding in verification. [cite: 37, 38, 39]
+
+### Rule: R3 - Appropriate Subject-Verb
+
+Rule_ID: R3
+
+Rule_Name: Appropriate Subject-Verb
+
+Rule_Text: Ensure the subject (system, user, etc.) is logically capable of performing the action. (e.g., "The user shall enter the password" is appropriate. "The system shall enter the password" is not). This ensures logical consistency. [cite: 39, 40, 41]
+
+### Rule: R4 - Defined Terms
+
+Rule_ID: R4
+
+Rule_Name: Defined Terms
+
+Rule_Text: Highlight any technical terms that require definition in a glossary. (e.g., if using "widget," ensure "widget" is defined). This avoids ambiguity. [cite: 41, 42]
+
+### Rule: R5 - Definite Articles
+
+Rule_ID: R5
+
+Rule_Name: Definite Articles
+
+Rule_Text: Use "the" instead of "a" or "an" for specific entities. (e.g., "The system shall display the error message" is specific. "The system shall display an error message" is less precise). This improves clarity. [cite: 43, 44, 45]
+
+### Rule: R6 - Common Units of Measure
+
+Rule_ID: R6
+
+Rule_Name: Common Units of Measure
+
+Rule_Text: Use SI/metric units. (e.g., "meters," "seconds," "Jos"). This allows for objective measurement. [cite: 45, 46]
+
+### Rule: R7 - Vague Terms
+
+Rule_ID: R7
+
+Rule_Name: Vague Terms
+
+Rule_Text: Avoid vague terms. (e.g., replace "user-friendly" with specific usability criteria). This ensures testability. [cite: 46, 47]
+
+### Rule: R8 - Escape Clauses
+
+Rule_ID: R8
+
+Rule_Name: Escape Clauses
+
+Rule_Text: Eliminate phrases that weaken the enforceability of the requirement. (e.g., remove "if possible," "as appropriate"). This makes the requirement mandatory. [cite: 47, 48]
+
+### Rule: R9 - Open-Ended Clauses
+
+Rule_ID: R9
+
+Rule_Name: Open-Ended Clauses
+
+Rule_Text: Avoid open-ended clauses. (e.g., remove "etc.," "and so on"). This ensures the requirement is fully defined. [cite: 48, 49]
+
+### Rule: R10 - Superfluous Infinitives
+
+Rule_ID: R10
+
+Rule_Name: Superfluous Infinitives
+
+Rule_Text: Remove unnecessary uses of "to be able to," "to be capable of," etc. (e.g., "The system shall process data" is better than "The system shall be able to process data"). This makes the requirement concise. [cite: 49, 50]
+
+### Rule: R11 - Separate Clauses
+
+Rule_ID: R11
+
+Rule_Name: Separate Clauses
+
+Rule_Text: Use one clause per requirement. (e.g., separate "The system shall do X and Y" into two requirements). This allows for independent verification. [cite: 50, 51]
+
+### Rule: R12 - Correct Grammar
+
+Rule_ID: R12
+
+Rule_Name: Correct Grammar
+
+Rule_Text: Ensure grammatical accuracy. This avoids misinterpretation. [cite: 52]
+
+### Rule: R13 - Correct Spelling
+
+Rule_ID: R13
+
+Rule_Name: Correct Spelling
+
+Rule_Text: Ensure correct spelling. This avoids errors and improves clarity. [cite: 52, 53]
+
+### Rule: R15 - Logical Expressions
+
+Rule_ID: R15
+
+Rule_Name: Logical Expressions
+
+Rule_Text: Use quantifiable logic. (e.g., use Boolean operators, mathematical inequalities). This allows for precise testing. [cite: 53, 54]
+
+### Rule: R16 - Use of “Not”
+
+Rule_ID: R16
+
+Rule_Name: Use of “Not”
+
+Rule_Text: Minimize the use of negative statements. Phrase requirements positively. (e.g., "The system shall display an error" is better than "The system shall not fail to display an error"). This improves clarity and verifiability. [cite: 54, 55, 56]
+
+### Rule: R17 - Use of Oblique Symbol
+
+Rule_ID: R17
+
+Rule_Name: Use of Oblique Symbol
+
+Rule_Text: Avoid using "/" to mean "and/or." (e.g., write "The system shall do A and B" or "The system shall do A or B" instead of "The system shall do A/B"). This avoids ambiguity. [cite: 56, 57, 58]
+
+### Rule: R18 - Single Thought Sentence
+
+Rule_ID: R18
+
+Rule_Name: Single Thought Sentence
+
+Rule_Text: Use single-thought sentences. (one requirement per sentence). This allows for focused verification. [cite: 58, 59]
+
+### Rule: R24 - Pronouns
+
+Rule_ID: R24
+
+Rule_Name: Pronouns
+
+Rule_Text: Avoid pronouns. (use specific nouns instead of "it," "they," etc.). This removes ambiguity. [cite: 15, 59]
+
+### Rule: R26 - Absolutes
+
+Rule_ID: R26
+
+Rule_Name: Absolutes
+
+Rule_Text: Avoid absolutes. (use "each" instead of "all," "every," "always," "never"). This makes the requirement more realistic. [cite: 59, 60]
+
+### Rule: R27 - Explicit Conditions
+
+Rule_ID: R27
+
+Rule_Name: Explicit Conditions
+
+Rule_Text: Define conditions explicitly. (e.g., "When the user clicks button X," not "Under certain circumstances"). This makes the requirement testable. [cite: 60, 61]
+
+### Rule: R28 - Multiple Conditions
+
+Rule_ID: R28
+
+Rule_Name: Multiple Conditions
+
+Rule_Text: Break down requirements with complex conditions. (e.g., separate "If A and B or C, then do X" into simpler requirements). This improves clarity and verifiability. [cite: 62, 63]
+
+### Rule: R31 - Solution Free
+
+Rule_ID: R31
+
+Rule_Name: Solution Free
+
+Rule_Text: Keep requirements solution-free. (describe what, not how). This allows for design flexibility.
+
+### Rule: R32 - Universal Qualification
+
+Rule_ID: R32
+
+Rule_Name: Universal Qualification
+
+Rule_Text: Use "each" instead of "all," "any," or "both" when appropriate. This ensures the requirement applies to individual instances.
+
+### Rule: R33 - Range of Values
+
+Rule_ID: R33
+
+Rule_Name: Range of Values
+
+Rule_Text: Include ranges and tolerances. (e.g., "5V ± 0.1V"). This reflects real-world variability.
+
+### Rule: R34 - Measurable Performance
+
+Rule_ID: R34
+
+Rule_Name: Measurable Performance
+
+Rule_Text: Use quantifiable metrics. (e.g., "100 transactions per second"). This allows for objective measurement.
+
+### Rule: R35 - Temporal Dependencies
+
+Rule_ID: R35
+
+Rule_Name: Temporal Dependencies
+
+Rule_Text: Define time dependencies. (e.g., "within 2 seconds," "after event Y"). This clarifies timing requirements.
+
+## Characteristic: C8 - Correct
+
+Characteristic_Name: Correct
+
+Description: Requirements should be accurate, unambiguous, and free from errors.
+
+### Rule: R1 - Structured Statements
+
+Rule_ID: R1
+
+Rule_Name: Structured Statements
+
+Rule_Text: Use the correct sentence structure: "<subject (entity)> shall <verb (action)> <object> <response>". This ensures a standard format.
+
+### Rule: R6 - Units of Measure
+
+Rule_ID: R6
+
+Rule_Name: Units of Measure
+
+Rule_Text: Explicitly state units when stating quantities. (e.g., "10 meters," "5 seconds," not just "10" or "5"). This avoids ambiguity.
+
+### Rule: R11 - Separate Clauses
+
+Rule_ID: R11
+
+Rule_Name: Separate Clauses
+
+Rule_Text: Separate combined conditions. (e.g., "If A, then X. If B, then Y" instead of "If A and B, then X and Y"). This allows for independent verification.
+
+### Rule: R12 - Correct Grammar
+
+Rule_ID: R12
+
+Rule_Name: Correct Grammar
+
+Rule_Text: Use correct grammar. This ensures the requirement is understandable.
+
+### Rule: R14 - Correct Punctuation
+
+Rule_ID: R14
+
+Rule_Name: Correct Punctuation
+
+Rule_Text: Use correct punctuation. This avoids misinterpretation.
+
+### Rule: R16 - Avoid "Not"
+
+Rule_ID: R16
+
+Rule_Name: Avoid "Not"
+
+Rule_Text: Minimize negative statements. (e.g., phrase as "The system shall do X" instead of "The system shall not fail to do X"). This improves clarity.
+
+### Rule: R26 - Avoid Absolutes
+
+Rule_ID: R26
+
+Rule_Name: Avoid Absolutes
+
+Rule_Text: Avoid absolutes. (e.g., use "each" or "every instance" instead of "always"). This makes the requirement realistic.
+
+### Rule: R27 - Explicit Conditions
+
+Rule_ID: R27
+
+Rule_Name: Explicit Conditions
+
+Rule_Text: Be explicit about conditions. (e.g., "When the user does A," not "Under certain conditions"). This makes the requirement testable.
+
+### Rule: R32 - Universal Qualification
+
+Rule_ID: R32
+
+Rule_Name: Universal Qualification
+
+Rule_Text: Avoid jargon or terms that require specific domain knowledge without definition. This ensures the requirement is understandable to all stakeholders.
+
+### Rule: R33 - Range of Values
+
+Rule_ID: R33
+
+Rule_Name: Range of Values
+
+Rule_Text: Add tolerances to numerical values. (e.g., "10 ± 0.5"). This reflects real-world variability.
+
+### Rule: R36 - Consistent Terms/Units
+
+Rule_ID: R36
+
+Rule_Name: Consistent Terms/Units
+
+Rule_Text: Use consistent terminology and units throughout the document. (e.g., always use "transmit" or "send," not a mix of both). This avoids confusion.
+
+
