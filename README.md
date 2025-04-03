@@ -18,8 +18,8 @@ of why it complies/doesn't comply. With a final step being rephrasing the requir
 adhere to non-complied rules within a particular characteristic.
 
 
-
-## Configure Open WebUI to Use Apache Tika
+# Tutorials
+## Configure Open WebUI to Use Apache Tika 
 To use Apache Tika as the context extraction engine in Open WebUI, follow these steps:
 
 Log in to your Open WebUI instance.
@@ -29,3 +29,8 @@ Click on the Documents tab.
 Change the Default content extraction engine dropdown to Tika.
 Update the context extraction engine URL to http://tika:9998.
 Save the changes.
+
+**How it works**
+1. Verify-tika.py parses documents from the "documents" folder for it to be read. 
+2. Run the script using the following command: python verify_tika.py
+3. The script will output a message indicating whether Apache Tika is working correctly
