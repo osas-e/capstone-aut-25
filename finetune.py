@@ -2,12 +2,15 @@
 
 # Run in terminal for required packages 
 # pip install transformers datasets torch gradio
+# pip install -U bitsandbytes
 
 from google.colab import files
 import pandas as pd
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from datasets import load_dataset
 from transformers import Trainer, TrainingArguments
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
 
 # Upload a CSV file - The dataset to be used for training
 uploaded = files.upload()
@@ -19,9 +22,22 @@ uploaded = files.upload()
 # # Show first few rows of the dataframe
 # df.head()
 
-# Load the LLM and its respective tokenizer
+# Load Bert model & tokenizer
 model = DistilBertForSequenceClassification.from_pretrained('distilbert-base-uncased')
 tokenizer = DistilBertTokenizer.from_pretrained('distilbert-base-uncased')
+
+# # Qwen model
+# model_name = "Qwen/Qwen2.5-7B"
+
+# # Load tokenizer
+# tokenizer = AutoTokenizer.from_pretrained(model_name)
+
+# # Load model in 4-bit mode
+# model = AutoModelForCausalLM.from_pretrained(
+#     model_name,
+#     torch_dtype=torch.float16,  # Use FP16 for efficiency
+#     load_in_4bit=True  # Reduce memory usage
+# )
 
 # Load the imported dataset
 dataset = load_dataset("csv", data_files="/content/CSV dataset.csv")
