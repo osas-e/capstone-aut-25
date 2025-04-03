@@ -9,7 +9,10 @@ services:
      - 3000:8080/tcp
     environment:
      - OLLAMA_BASE_URL=http://ollama:11434
-    
+     ## apache tika
+     - TIKA_SERVER_URL=http://tika:9998
+     - CONTENT_EXTRACTION_ENGINE=tika
+   
      # uncomment the following if you are running ollama on the docker host and remove the ollama service below
      - OLLAMA_BASE_URL=http://host.docker.internal:11434
     volumes:
@@ -54,3 +57,4 @@ services:
 volumes:
   ollama:
   open-webui:
+  postgres_data:
