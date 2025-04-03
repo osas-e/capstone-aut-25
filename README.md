@@ -9,9 +9,13 @@ Autumn 2025
 - **Osasere Eguaibor** - 13623549
 
 # Project Details
+The aim of this project is to train LLM to evaluate a set of individual requirements 
+as per the INCOSE guidelines, containing a set of characteristics and rules each requirement
+shall adhere to (depending on context). 
 
-
-
+The model will provide a compliance rating after analyzing the requirements, and and explanation
+of why it complies/doesn't comply. With a final step being rephrasing the requirement statement to
+adhere to non-complied rules within a particular characteristic.
 
 
 
