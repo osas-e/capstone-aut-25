@@ -4,7 +4,9 @@
 # pip install transformers datasets torch gradio
 # pip install -U bitsandbytes
 
-from google.colab import files
+# Valid for Google Colab use only
+# from google.colab import files
+
 import pandas as pd
 from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
 from datasets import load_dataset
@@ -12,8 +14,8 @@ from transformers import Trainer, TrainingArguments
 from transformers import AutoModelForCausalLM, AutoTokenizer
 import torch
 
-# Upload a CSV file - The dataset to be used for training
-uploaded = files.upload()
+# Upload a CSV file - The dataset to be used for training (valid for Google Colab only)
+# uploaded = files.upload()
 
 # # Load CSV into dataframe
 # csv_filename = list(uploaded.keys())[0]  # Get uploaded filename
