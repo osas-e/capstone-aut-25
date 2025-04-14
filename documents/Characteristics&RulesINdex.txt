@@ -1,0 +1,128 @@
+# Index
+
+## C1: Necessary
+### RULE 20 - Purpose Phrases
+### RULE 30 - Unique Expression
+
+## C2: Appropriate
+### RULE 2 - Active Voice
+### RULE 3 - Appropriate Subject-Verb
+### RULE 31 - Solution Free
+
+## C3: Uambiguous
+### RULE 1 - Structured Statements
+### RULE 2 - Active Voice
+### RULE 3 – Appropriate Subject-Verb
+### RULE 4 – Defined Terms
+### RULE 5 – Definite Articles
+### RULE 6 - Common Units of Measure
+### RULE 7 - Vague Terms
+### RULE 8 – Escape Clauses
+### RULE 9 – Open-Ended Clauses
+### RULE 10 – Superfluous Infinitives
+### RULE 11 – Separate Clauses
+### RULE 12 – Correct Grammar
+### RULE 13 – Correct Spelling
+### RULE 15 – Logical Expressions
+### RULE 16 – Use of “Not”
+### RULE 17 – Use of Oblique Symbol
+### RULE 18 – Single Thought Sentence 
+### RULE 19 - Combinators
+### RULE 22 – Enumeration
+### RULE 23 - Supporting Diagram, Model, or ICD
+### RULE 24 – Pronouns
+### RULE 28 – Multiple Conditions
+### RULE 32 – Universal Qualification
+### RULE 33 – Range of Values
+### RULE 34  – Measurable Performance
+### RULE 35 – Temporal Dependencies
+### RULE 36 – Consistent Terms and Units
+### RULE 37 - Acronyms
+### RULE 40 – Decimal Format
+
+
+## C4: Complete
+### RULE 1 - Structured Statements
+### RULE 2 - Active Voice
+### RULE 6 - Common Units of Measure
+### RULE 7 - Vague Terms
+### RULE 9 - Open-Ended Clauses
+### RULE 11 - Separate Clauses
+### RULE 23 - Supporting Diagram, Model, or ICD
+### RULE 24 – Pronouns
+### RULE 25 – Headings
+### RULE 27 – Explicit Conditions
+### RULE 33 – Range of Values
+### RULE 34  – Measurable Performance
+### RULE 35 – Temporal Dependencies
+### RULE 39 – Style Guide
+### RULE 40 – Decimal Format
+### RULE 41 – Related Needs and Requirements
+
+## C5: Singular
+### RULE 9 - Open-Ended Clauses
+### RULE 18 – Single Thought Sentence
+### RULE 19 – Combinators
+### RULE 20 – Purpose Phrases
+### RULE 21 – Parentheses
+### RULE 22 – Enumeration
+### RULE 23 - Supporting Diagram, Model, or ICD
+### RULE 39 – Style Guide
+
+## C6:: Feasible
+### RULE 26 – Absolutes
+### RULE 33 – Range of Values
+
+## C7: Verifiable
+### RULE 1 - Structured Statements
+### RULE 2 - Active Voice
+### RULE 3 – Appropriate Subject-Verb
+### RULE 4 – Defined Terms
+### RULE 5 – Definite Articles
+### RULE 6 - Common Units of Measure
+### RULE 7 - Vague Terms
+### RULE 8 – Escape Clauses
+### RULE 9 – Open-Ended Clauses
+### RULE 10 – Superfluous Infinitives
+### RULE 11 – Separate Clauses
+### RULE 12 – Correct Grammar
+### RULE 13 – Correct Spelling
+### RULE 15 – Logical Expressions
+### RULE 16 – Use of “Not”
+### RULE 17 – Use of Oblique Symbol
+### RULE 18 – Single Thought Sentence 
+### RULE 24 – Pronouns
+### RULE 26 – Absolutes
+### RULE 27 – Explicit Conditions
+### RULE 28 – Multiple Conditions
+### RULE 31 – Solution Free
+### RULE 32 – Universal Qualification
+### RULE 33 – Range of Values
+### RULE 34 – Measurable Performance
+### RULE 35 – Temporal Dependencies
+
+## C8 (Correct) Rules:
+### RULE 1 – Structured Statements
+### RULE 6 – Common Units of Measure
+### RULE 11 – Separate Clauses
+### RULE 12 – Correct Grammar
+### RULE 14 – Correct Punctuation
+### RULE 16 – Use of “Not”
+### RULE 26 – Absolutes
+### RULE 27 – Explicit Conditions
+### RULE 32 – Universal Qualification
+### RULE 33 – Range of Values
+### RULE 36 – Consistent Terms and Units
+
+## C9 (Conforming) Rules:
+### RULE 1 – Structured Statements
+### RULE 12 – Correct Grammar
+### RULE 18 – Single Thought Sentence 
+### RULE 30 - Unique Expression
+### RULE 36 – Consistent Terms and Units
+### RULE 37 - Acronyms
+### RULE 38 - Abbreviations
+### RULE 39 – Style Guide
+### RULE 40 – Decimal Format
+### RULE 41 – Related Needs and Requirements
+
