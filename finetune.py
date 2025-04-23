@@ -49,16 +49,24 @@ dataset = load_dataset("csv", data_files="CSV dataset.csv")
 print(dataset['train'][0])
 
 # # Define the tokenizer function
-# def tokenize_function(example):
-#   return tokenizer(example["text"], padding="max_length", truncation=True)
+def tokenize_function(example):
+  return tokenizer(example["text"], padding="max_length", max_length=64, truncation=True)
 
-# tokenized_dataset = dataset.map(tokenize_function, batched=True)
+tokenized_dataset = dataset.map(tokenize_function, batched=True)
 
-# print("Tokenization complete")
+print("Tokenization complete")
 
 # # Display DatasetDict object
+# print(tokenizer)
 # print(tokenized_dataset)
 # print(tokenized_dataset['train'][50]['text'])
+
+print()
+print(tokenizer("'Evaluate")["input_ids"])
+print(tokenizer("'Evaluate this")["input_ids"])
+print(tokenizer("'Evaluate this requirement")["input_ids"])
+print(tokenizer("'Evaluate this requirement: ")["input_ids"])
+print(tokenized_dataset['train'][50])
 
 # # Define training arguments for use at training stage
 # training_args = TrainingArguments(

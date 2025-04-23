@@ -1,0 +1,1 @@
+FROM fine_tuned_incose_model/model.safetensors
