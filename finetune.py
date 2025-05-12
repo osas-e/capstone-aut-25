@@ -7,13 +7,13 @@
 # Valid for Google Colab use only
 # from google.colab import files
 
-import pandas as pd
-from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
-from datasets import load_dataset
-from transformers import Trainer, TrainingArguments
-from transformers import AutoModelForCausalLM, AutoTokenizer
-import torch
-import bitsandbytes
+# import pandas as pd
+# from transformers import DistilBertTokenizer, DistilBertForSequenceClassification
+# from datasets import load_dataset
+# from transformers import Trainer, TrainingArguments
+# from transformers import AutoModelForCausalLM, AutoTokenizer
+# import torch
+# import bitsandbytes
 
 # Upload a CSV file - The dataset to be used for training (valid for Google Colab only)
 # uploaded = files.upload()
