@@ -18,11 +18,12 @@ of why it complies/doesn't comply. With a final step being rephrasing the requir
 adhere to non-complied rules within a particular characteristic.
 
 
-##Services Overview
+## Services Overview
 ### webui
 - **Image**: `ghcr.io/open-webui/open-webui:main`
 - **Function**: Serves as the web interface for interacting with the Ollama AI models.
 - **Customization**: Adjust `OLLAMA_API_BASE_URL` to match the internal network URL of the `ollama` service. If running `ollama` on the docker host, comment out the existing `OLLAMA_API_BASE_URL` and use the provided alternative.
+- **Apache-Tika**: Content extraction engine for RAG purposes
 
 ### ollama (Optional if you are running ollama on the docker host)
 - **Image**: `ollama/ollama`
@@ -62,5 +63,5 @@ Save the changes.
     - Run `docker compose up -d` to start the services in detached mode.
 
 4. **Accessing the Web UI**:
-    - Directly via `http://localhost:8080` if local access is sufficient.
+    - Directly via `http://localhost:3000` if local access is sufficient.
     - Through the Cloudflare Tunnel URL printed in the docker logs. Run `docker compose logs tunnel` to find the URL for remote access
