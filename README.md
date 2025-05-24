@@ -20,11 +20,10 @@ adhere to non-complied rules within a particular characteristic.
 
 ## Services Overview
 ### webui
-- **Image**: `ghcr.io/open-webui/open-webui:main`
+- **Image**: `ghcr.io/open-webui/open-webui:cuda`
 - **Function**: Serves as the web interface for interacting with the Ollama AI models.
 - **Customization**: Adjust `OLLAMA_API_BASE_URL` to match the internal network URL of the `ollama` service. If running `ollama` on the docker host, comment out the existing `OLLAMA_API_BASE_URL` and use the provided alternative.
-- **Apache-Tika**: Content extraction engine for RAG purposes
-
+  
 ### ollama (Optional if you are running ollama on the docker host)
 - **Image**: `ollama/ollama`
 - **Function**: Acts as the AI model server, with the capability to utilize NVIDIA GPUs for model inference.
@@ -34,6 +33,11 @@ adhere to non-complied rules within a particular characteristic.
 - **Image**: `cloudflare/cloudflared:latest`
 - **Function**: Provides a secure tunnel to the web UI via Cloudflare, enhancing remote access security.
 - **Note**: We are using the demo mode by default, so the URL will change each time you restart unless you create an account with cloudflaree
+
+### Apache Tika
+ - **Image**: apache/tika:latest-full
+ - **Function**: Content Extraction engine for document retrieval
+
 
 # Tutorials
 ## Configure Open WebUI to Use Apache Tika 
