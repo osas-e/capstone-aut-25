@@ -2,7 +2,7 @@
 services:
 
   webui:
-    image: ghcr.io/open-webui/open-webui:main
+    image: ghcr.io/open-webui/open-webui:cuda
     expose:
      - 8080/tcp
     ports:
@@ -12,6 +12,13 @@ services:
     
      # uncomment the following if you are running ollama on the docker host and remove the ollama service below
      - OLLAMA_BASE_URL=http://host.docker.internal:11434
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              device_ids: ['all']
+              capabilities: [gpu]
     volumes:
       - open-webui:/app/backend/data
     depends_on:
